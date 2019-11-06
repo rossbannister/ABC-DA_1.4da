@@ -1,0 +1,16 @@
+INTERFACE
+  SUBROUTINE Write_Covs (filename, CVT, longs, levs, newfile, output_params, output_stddevs, output_vert, &
+                         output_horiz, output_regression)
+  USE DefConsTypes, ONLY : ZREAL8, CVT_type, nlongs, nlevs, A, B, C, f
+  CHARACTER(LEN=*),  INTENT(IN) :: filename
+  TYPE(CVT_type),    INTENT(IN) :: CVT
+  REAL(ZREAL8),      INTENT(IN) :: longs(1:nlongs)
+  REAL(ZREAL8),      INTENT(IN) :: levs(1:nlevs)
+  LOGICAL, OPTIONAL, INTENT(IN) :: newfile
+  LOGICAL, OPTIONAL, INTENT(IN) :: output_params
+  LOGICAL, OPTIONAL, INTENT(IN) :: output_stddevs
+  LOGICAL, OPTIONAL, INTENT(IN) :: output_vert
+  LOGICAL, OPTIONAL, INTENT(IN) :: output_horiz
+  LOGICAL, OPTIONAL, INTENT(IN) :: output_regression
+  END SUBROUTINE Write_Covs
+END INTERFACE

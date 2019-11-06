@@ -1,0 +1,12 @@
+INTERFACE
+  SUBROUTINE Write_Obs (Filename, maxtime, dt, timestepsreq, dt_da, DAtimestepsreq, Obs)
+  USE DefConsTypes, ONLY : ZREAL8, Obs_type
+  CHARACTER(LEN=200),      INTENT(IN) :: Filename
+  INTEGER,                 INTENT(IN) :: maxtime
+  REAL(ZREAL8),            INTENT(IN) :: dt
+  INTEGER,                 INTENT(IN) :: timestepsreq
+  REAL(ZREAL8),            INTENT(IN) :: dt_da
+  INTEGER,                 INTENT(IN) :: DAtimestepsreq
+  TYPE(Obs_type), POINTER, INTENT(IN) :: Obs
+  END SUBROUTINE Write_Obs
+END INTERFACE
