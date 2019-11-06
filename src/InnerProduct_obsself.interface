@@ -1,0 +1,8 @@
+INTERFACE
+  REAL(ZREAL8) FUNCTION InnerProduct_obsself ( Obs, weighted, part )
+  USE DefConsTypes, ONLY : ZREAL8, Obs_type
+  TYPE(Obs_type), POINTER, INTENT(IN) :: Obs
+  LOGICAL,                 INTENT(IN) :: weighted
+  INTEGER,                 INTENT(IN) :: part
+  END FUNCTION InnerProduct_obsself
+END INTERFACE

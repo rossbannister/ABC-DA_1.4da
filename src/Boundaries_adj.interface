@@ -1,0 +1,14 @@
+INTERFACE
+  SUBROUTINE Boundaries_adj (state, set_u, set_v, set_w, set_r, set_b, set_rho, set_beff, set_tracer)
+  USE DefConsTypes, ONLY : ABC_type
+  TYPE(ABC_type),        INTENT(INOUT) :: state
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_u
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_v
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_w
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_r
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_b
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_rho
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_beff
+  LOGICAL, OPTIONAL,     INTENT(IN)    :: set_tracer
+  END SUBROUTINE Boundaries_adj
+END INTERFACE

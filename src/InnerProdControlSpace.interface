@@ -1,0 +1,15 @@
+INTERFACE
+  COMPLEX(ZREAL8) FUNCTION InnerProdControlSpace (x1, x2, ComplexSpace, do_1, do_2, do_3, do_4, do_5, do_6, ignore_halos)
+  USE DefConsTypes, ONLY : ZREAL8, CV_type
+  TYPE(CV_type),      INTENT(IN) :: x1 
+  TYPE(CV_type),      INTENT(IN) :: x2 
+  LOGICAL, OPTIONAL,  INTENT(IN) :: ComplexSpace
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_1
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_2
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_3
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_4
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_5
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_6
+  LOGICAL, OPTIONAL,  INTENT(IN) :: ignore_halos
+  END FUNCTION InnerProdControlSpace
+END INTERFACE

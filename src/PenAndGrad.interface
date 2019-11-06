@@ -1,0 +1,39 @@
+INTERFACE
+  SUBROUTINE PenAndGrad ( VarType, dasteps, steps, dims, t0,                       &
+                          Obs, dchi0, dchi0zero, dchib0, dchib0zero,               &
+                          CVTdata, LSfc, Jb, Jo, J, compute_grad, grad0,           &
+                          outputdiags_flag, forceNLmodel, outputdir, outerloop, innerloop )
+  USE DefConsTypes, ONLY :  &
+    ZREAL8,                 &
+    ABC_type,               &
+    dims_type,              &
+    nlongs,                 &
+    nlevs,                  &
+    Obs_type,               &
+    CV_type,                &
+    CVT_type,               &
+    dt, dt_da
+  INTEGER,                 INTENT(IN)    :: Vartype
+  INTEGER,                 INTENT(IN)    :: dasteps
+  INTEGER,                 INTENT(IN)    :: steps
+  TYPE(dims_type),         INTENT(IN)    :: dims
+  INTEGER,                 INTENT(IN)    :: t0
+  TYPE(Obs_type), POINTER, INTENT(IN)    :: Obs
+  TYPE(CV_type),           INTENT(IN)    :: dchi0
+  LOGICAL,                 INTENT(IN)    :: dchi0zero
+  TYPE(CV_type),           INTENT(IN)    :: dchib0
+  LOGICAL,                 INTENT(IN)    :: dchib0zero
+  TYPE(CVT_type),          INTENT(IN)    :: CVTdata
+  TYPE(ABC_type),          INTENT(INOUT) :: LSfc(0:steps)
+  REAL(ZREAL8),            INTENT(OUT)   :: Jb
+  REAL(ZREAL8),            INTENT(OUT)   :: Jo
+  REAL(ZREAL8),            INTENT(OUT)   :: J
+  LOGICAL,                 INTENT(IN)    :: compute_grad
+  TYPE(CV_type),           INTENT(INOUT) :: grad0
+  LOGICAL,                 INTENT(IN)    :: outputdiags_flag
+  LOGICAL,                 INTENT(IN)    :: forceNLmodel
+  CHARACTER(LEN=100),      INTENT(IN)    :: outputdir
+  INTEGER,                 INTENT(IN)    :: innerloop
+  INTEGER,                 INTENT(IN)    :: outerloop
+  END SUBROUTINE PenAndGrad
+END INTERFACE

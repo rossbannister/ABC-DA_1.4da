@@ -1,0 +1,12 @@
+INTERFACE
+  SUBROUTINE Read_Obs (Observations, Obs_filename, dt, timestepsreq, dt_da, DAtimestepsreq, maxtime)
+  USE DefConsTypes, ONLY : ZREAL8, Obs_type
+  TYPE(Obs_type), POINTER, INTENT(INOUT) :: Observations
+  CHARACTER(LEN=200),      INTENT(IN)    :: Obs_filename
+  REAL(ZREAL8),            INTENT(OUT)   :: dt
+  INTEGER,                 INTENT(OUT)   :: timestepsreq
+  REAL(ZREAL8),            INTENT(OUT)   :: dt_da
+  INTEGER,                 INTENT(OUT)   :: DAtimestepsreq
+  INTEGER,                 INTENT(OUT)   :: maxtime
+  END SUBROUTINE Read_Obs
+END INTERFACE

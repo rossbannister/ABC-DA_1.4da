@@ -1,0 +1,14 @@
+INTERFACE
+  REAL(ZREAL8) FUNCTION InnerProdModelSpace (x1, x2, do_u, do_v, do_w, do_r, do_b, do_tracer, ignore_halos)
+  USE DefConsTypes, ONLY : ZREAL8, ABC_type
+  TYPE(ABC_type),     INTENT(IN) :: x1
+  TYPE(ABC_type),     INTENT(IN) :: x2
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_u
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_v
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_w
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_r
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_b
+  LOGICAL, OPTIONAL,  INTENT(IN) :: do_tracer
+  LOGICAL, OPTIONAL,  INTENT(IN) :: ignore_halos
+  END FUNCTION InnerProdModelSpace
+END INTERFACE

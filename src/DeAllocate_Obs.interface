@@ -1,0 +1,8 @@
+INTERFACE
+  SUBROUTINE DeAllocate_Obs(Obs)
+  USE DefConsTypes, ONLY :     &
+      Obs_type
+  TYPE(Obs_type), POINTER, INTENT(INOUT) :: Obs
+  TYPE(Obs_type), POINTER                :: thisob, prevob
+  END SUBROUTINE DeAllocate_Obs
+END INTERFACE

@@ -1,0 +1,19 @@
+INTERFACE
+  SUBROUTINE ModelObservations ( steps, NLStates, dims, timestep, t0, &
+                                 Obs, simulate_obs )
+  USE DefConsTypes, ONLY :  &
+    ZREAL8,                 &
+    ABC_type,               &
+    dims_type,              &
+    nlongs,                 &
+    nlevs,                  &
+    Obs_type
+  INTEGER,                 INTENT(IN) :: steps
+  TYPE(ABC_type),          INTENT(IN) :: NLStates(0:steps)
+  TYPE(dims_type),         INTENT(IN) :: dims
+  REAL(ZREAL8),            INTENT(IN) :: timestep
+  INTEGER,                 INTENT(IN) :: t0
+  TYPE(Obs_type), POINTER, INTENT(IN) :: Obs
+  LOGICAL,                 INTENT(IN) :: simulate_obs
+  END SUBROUTINE ModelObservations
+END INTERFACE

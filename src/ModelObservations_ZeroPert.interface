@@ -1,0 +1,6 @@
+INTERFACE
+  SUBROUTINE ModelObservations_ZeroPert (Obs)
+  USE DefConsTypes, ONLY : ZREAL8, Obs_type
+  TYPE(Obs_type), POINTER, INTENT(IN) :: Obs
+  END SUBROUTINE ModelObservations_ZeroPert
+END INTERFACE
