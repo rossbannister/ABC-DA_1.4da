@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2020-01-17"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>Instructions for generating plots shown in paper, The ‘ABC-DA’ system (v1.4): a variational data assimilation system for convective scale research with a study of the impact of a balance constraint</title>
+</head>
+<body>
+<div id="globalWrapper">
+<h1 class="title">
+Instructions for generating plots shown in paper, &ldquo;The ‘ABC-DA’ system (v1.4): a variational data assimilation system for convective scale research with a study of the impact of a balance constraint&rdquo;
+</h1>
+<div class="Unindented">
+Further guidance on downloading, compiling, and running the software is available in the documentation on github (DOI: 10.5281/zenodo.3531926). The mentioned document also shows how the python plotting code is accessed.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> Figure 1
+</h1>
+<div class="Unindented">
+This is a schema, and so doesn’t require production of any results.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Figure 2
+</h1>
+<ol>
+<li>
+This requires the control variable transform (CVT) to first be calibrated. Make directory to contain <i>CVT.nc</i> file (call <i>Master_Calibration</i>), and enter this directory.
+</li>
+<li>
+Make directory inside <i>Master_Calibration</i> (call <i>Master_Calibration_stage1</i>) and enter this directory.
+</li>
+<li>
+Generate ensemble to be used for calibrating the CVT from given UM file (<i>Member001.nc</i> inside directory <i>/home/data/UMdir</i> in this example). Run <i>Master_Calibration.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.4.1.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Reading and processing UM data
+! ------------------------------
+A                     = 0.02,
+B                     = 0.01,
+C                     = 1.0E4,
+dt                    = 4.0,
+Adv_tracer            = .TRUE.,
+runlength             = 3600.0,
+CalibRunStage         = 1,
+NEns                  = 1,
+EnsDirs(1)            = ’/home/data/UMdir’,
+NEnsMems              = 1,
+NNMC                  = 0,
+Nlats                 = 260,
+latindex(1)           = 11,
+latindex(2)           = 12,
+latindex(3)           = 13,
+latindex(4)           = 14,
+latindex(5)           = 15,
+latindex(6)           = 16,
+latindex(7)           = 17,
+latindex(8)           = 18,
+latindex(9)           = 19,
+latindex(10)          = 20,
+latindex(11)          = 21,
+latindex(12)          = 22,
+latindex(13)          = 23,
+latindex(14)          = 24,
+latindex(15)          = 25,
+latindex(16)          = 26,
+latindex(17)          = 27,
+latindex(18)          = 28,
+latindex(19)          = 29,
+latindex(20)          = 30,
+latindex(21)          = 31,
+latindex(22)          = 32,
+latindex(23)          = 33,
+latindex(24)          = 34,
+latindex(25)          = 35,
+latindex(26)          = 36,
+latindex(27)          = 37,
+latindex(28)          = 38,
+latindex(29)          = 39,
+latindex(30)          = 40,
+latindex(31)          = 41,
+latindex(32)          = 42,
+latindex(33)          = 43,
+latindex(34)          = 44,
+latindex(35)          = 45,
+latindex(36)          = 46,
+latindex(37)          = 47,
+latindex(38)          = 48,
+latindex(39)          = 49,
+latindex(40)          = 50,
+latindex(41)          = 51,
+latindex(42)          = 52,
+latindex(43)          = 53,
+latindex(44)          = 54,
+latindex(45)          = 55,
+latindex(46)          = 56,
+latindex(47)          = 57,
+latindex(48)          = 58,
+latindex(49)          = 59,
+latindex(50)          = 60,
+latindex(51)          = 61,
+latindex(52)          = 62,
+latindex(53)          = 63,
+latindex(54)          = 64,
+latindex(55)          = 65,
+latindex(56)          = 66,
+latindex(57)          = 67,
+latindex(58)          = 68,
+latindex(59)          = 69,
+latindex(60)          = 70,
+latindex(61)          = 71,
+latindex(62)          = 72,
+latindex(63)          = 73,
+latindex(64)          = 74,
+latindex(65)          = 75,
+latindex(66)          = 76,
+latindex(67)          = 77,
+latindex(68)          = 78,
+latindex(69)          = 79,
+latindex(70)          = 80,
+latindex(71)          = 81,
+latindex(72)          = 82,
+latindex(73)          = 83,
+latindex(74)          = 84,
+latindex(75)          = 85,
+latindex(76)          = 86,
+latindex(77)          = 87,
+latindex(78)          = 88,
+latindex(79)          = 89,
+latindex(80)          = 90,
+latindex(81)          = 91,
+latindex(82)          = 92,
+latindex(83)          = 93,
+latindex(84)          = 94,
+latindex(85)          = 95,
+latindex(86)          = 96,
+latindex(87)          = 97,
+latindex(88)          = 98,
+latindex(89)          = 99,
+latindex(90)          = 100,
+latindex(91)          = 101,
+latindex(92)          = 102,
+latindex(93)          = 103,
+latindex(94)          = 104,
+latindex(95)          = 105,
+latindex(96)          = 106,
+latindex(97)          = 107,
+latindex(98)          = 108,
+latindex(99)          = 109,
+latindex(100)         = 110,
+latindex(101)         = 111,
+latindex(102)         = 112,
+latindex(103)         = 113,
+latindex(104)         = 114,
+latindex(105)         = 115,
+latindex(106)         = 116,
+latindex(107)         = 117,
+latindex(108)         = 118,
+latindex(109)         = 119,
+latindex(110)         = 120,
+latindex(111)         = 121,
+latindex(112)         = 122,
+latindex(113)         = 123,
+latindex(114)         = 124,
+latindex(115)         = 125,
+latindex(116)         = 126,
+latindex(117)         = 127,
+latindex(118)         = 128,
+latindex(119)         = 129,
+latindex(120)         = 130,
+latindex(121)         = 131,
+latindex(122)         = 132,
+latindex(123)         = 133,
+latindex(124)         = 134,
+latindex(125)         = 135,
+latindex(126)         = 136,
+latindex(127)         = 137,
+latindex(128)         = 138,
+latindex(129)         = 139,
+latindex(130)         = 140,
+latindex(131)         = 141,
+latindex(132)         = 142,
+latindex(133)         = 143,
+latindex(134)         = 144,
+latindex(135)         = 145,
+latindex(136)         = 146,
+latindex(137)         = 147,
+latindex(138)         = 148,
+latindex(139)         = 149,
+latindex(140)         = 150,
+latindex(141)         = 151,
+latindex(142)         = 152,
+latindex(143)         = 153,
+latindex(144)         = 154,
+latindex(145)         = 155,
+latindex(146)         = 156,
+latindex(147)         = 157,
+latindex(148)         = 158,
+latindex(149)         = 159,
+latindex(150)         = 160,
+latindex(151)         = 161,
+latindex(152)         = 162,
+latindex(153)         = 163,
+latindex(154)         = 164,
+latindex(155)         = 165,
+latindex(156)         = 166,
+latindex(157)         = 167,
+latindex(158)         = 168,
+latindex(159)         = 169,
+latindex(160)         = 170,
+latindex(161)         = 171,
+latindex(162)         = 172,
+latindex(163)         = 173,
+latindex(164)         = 174,
+latindex(165)         = 175,
+latindex(166)         = 176,
+latindex(167)         = 177,
+latindex(168)         = 178,
+latindex(169)         = 179,
+latindex(170)         = 180,
+latindex(171)         = 181,
+latindex(172)         = 182,
+latindex(173)         = 183,
+latindex(174)         = 184,
+latindex(175)         = 185,
+latindex(176)         = 186,
+latindex(177)         = 187,
+latindex(178)         = 188,
+latindex(179)         = 189,
+latindex(180)         = 190,
+latindex(181)         = 191,
+latindex(182)         = 192,
+latindex(183)         = 193,
+latindex(184)         = 194,
+latindex(185)         = 195,
+latindex(186)         = 196,
+latindex(187)         = 197,
+latindex(188)         = 198,
+latindex(189)         = 199,
+latindex(190)         = 200,
+latindex(191)         = 201,
+latindex(192)         = 202,
+latindex(193)         = 203,
+latindex(194)         = 204,
+latindex(195)         = 205,
+latindex(196)         = 206,
+latindex(197)         = 207,
+latindex(198)         = 208,
+latindex(199)         = 209,
+latindex(200)         = 210,
+latindex(201)         = 211,
+latindex(202)         = 212,
+latindex(203)         = 213,
+latindex(204)         = 214,
+latindex(205)         = 215,
+latindex(206)         = 216,
+latindex(207)         = 217,
+latindex(208)         = 218,
+latindex(209)         = 219,
+latindex(210)         = 220,
+latindex(211)         = 221,
+latindex(212)         = 222,
+latindex(213)         = 223,
+latindex(214)         = 224,
+latindex(215)         = 225,
+latindex(216)         = 226,
+latindex(217)         = 227,
+latindex(218)         = 228,
+latindex(219)         = 229,
+latindex(220)         = 230,
+latindex(221)         = 231,
+latindex(222)         = 232,
+latindex(223)         = 233,
+latindex(224)         = 234,
+latindex(225)         = 235,
+latindex(226)         = 236,
+latindex(227)         = 237,
+latindex(228)         = 238,
+latindex(229)         = 239,
+latindex(230)         = 240,
+latindex(231)         = 241,
+latindex(232)         = 242,
+latindex(233)         = 243,
+latindex(234)         = 244,
+latindex(235)         = 245,
+latindex(236)         = 246,
+latindex(237)         = 247,
+latindex(238)         = 248,
+latindex(239)         = 249,
+latindex(240)         = 250,
+latindex(241)         = 251,
+latindex(242)         = 252,
+latindex(243)         = 253,
+latindex(244)         = 254,
+latindex(245)         = 255,
+latindex(246)         = 256,
+latindex(247)         = 257,
+latindex(248)         = 258,
+latindex(249)         = 259,
+latindex(250)         = 260,
+latindex(251)         = 261,
+latindex(252)         = 262,
+latindex(253)         = 263,
+latindex(254)         = 264,
+latindex(255)         = 265,
+latindex(256)         = 266,
+latindex(257)         = 267,
+latindex(258)         = 268,
+latindex(259)         = 269,
+latindex(260)         = 270,
+BoundSpread           = 100,
+datadirABCfcs         = ’.’,
+datadirCVT            = ’..’,
+CVT_file              = ’CVT.nc’,
+CVT%CVT_order         = 1,
+CVT%CVT_param_opt_gb  = 1,
+CVT%CVT_param_opt_hb  = 1,
+CVT%CVT_param_opt_ab  = 2,
+CVT%CVT_param_opt_reg = 1,
+CVT%CVT_vert_opt_sym  = 1,
+CVT%CVT_stddev_opt    = 2
+/
+</pre>
+</div>
+
+</li>
+<li>
+Make directory inside <i>Master_Calibration</i> (call <i>Master_Calibration_stage2</i>) and enter this directory.
+</li>
+<li>
+Generate ensemble mean state, and perturbations from this ensemble. Run <i>Master_Calibration.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.4.2.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Generating ensemble perturbations from ensemble forecasts
+! ---------------------------------------------------------
+CalibRunStage     = 2,
+NEns              = 1,
+NEnsMems          = 1,
+NNMC              = 0,
+Nlats             = 260,
+datadirABCfcs     = ’../Master_Calibration_stage1’,
+datadirABCperts   = ’.’,
+datadirCVT        = ’../’,
+CVT_file          = ’CVT.nc’
+/
+</pre>
+</div>
+
+</li>
+<li>
+Make directory inside <i>Master_Calibration</i> (call <i>Master_Calibration_stage3</i>) and enter this directory.
+</li>
+<li>
+Generate vertical regression matrix. Run <i>Master_Calibration.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.4.3.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Generate vertical regression matrix
+! -----------------------------------
+CalibRunStage     = 3,
+NEns              = 1,
+NEnsMems          = 1,
+NNMC              = 0,
+Nlats             = 260,
+datadirRegression = ’.’,
+datadirABCperts   = ’../Master_Calibration_stage2’,
+datadirCVT        = ’..’,
+CVT_file          = ’CVT.nc’
+/
+</pre>
+</div>
+
+</li>
+<li>
+To plot figure 2(c), edit the python program <i>PlotRegressionMatrices.py</i> to set <i>datadirCVT</i> to <i>Master_Calibration</i>, and run the python program.
+</li>
+<li>
+Make directory inside <i>Master_Calibration</i> (call <i>Master_Calibration_stage4</i>) and enter this directory.
+</li>
+<li>
+Generate ensemble perturbations in terms of parameters. Run <i>Master_Calibration.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.4.4.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Generate parameter perturbations
+! --------------------------------
+CalibRunStage     = 4,
+NEns              = 1,
+NEnsMems          = 1,
+NNMC              = 0,
+Nlats             = 260,
+datadirABCperts   = ’../Master_Calibration_stage2’,
+datadirConParams  = ’.’,
+datadirCVT        = ’..’,
+CVT_file          = ’CVT.nc’,
+/
+</pre>
+</div>
+
+</li>
+<li>
+To plot Figs. 2(a,b,d), edit the python program <i>Plot_rp_pre+post_regress.py</i> to set <i>data_dir_stage2</i> to <i>Master_Calibration/Master_Calibration_stage2</i> and <i>data_dir_stage4</i> to <i>Master_Calibration/Master_Calibration_stage4</i> and run the python program.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-3">3</a> Figure 3
+</h1>
+<ol>
+<li>
+Make directory inside <i>Master_Calibration</i> (call <i>Master_Calibration_stage5</i>) and enter this directory.
+</li>
+<li>
+Generate spatial transform data (the remaining part of the calibration step). Run <i>Master_Calibration.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.4.5.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Calibrate spatial transforms
+! ----------------------------
+CalibRunStage     = 5,
+NEns              = 1,
+NEnsMems          = 1,
+NNMC              = 0,
+Nlats             = 260,
+datadirABCperts   = ’../Master_Calibration_stage2’,
+datadirConParams  = ’../Master_Calibration_stage4’,
+datadirCVT        = ’..’,
+CVT_file          = ’CVT.nc’
+/
+</pre>
+</div>
+
+</li>
+<li>
+Edit the python program <i>PlotCVT.py</i> to set <i>data_dir_CVT</i> to <i>Master_Calibration</i>, and run the python program.
+</li>
+<li>
+This can be repeated for different experiment configurations to get the different lines in panel (c) of the paper.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-4">4</a> Figure 4
+</h1>
+<ol>
+<li>
+This is also output from <i>PlotCVT.py</i> as run for Fig. 3.
+</li>
+<li>
+This can be repeated for different experiment configurations to get the different lines in panel (c) of the paper.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-5">5</a> Figure 5
+</h1>
+<ol>
+<li>
+This is also output from <i>PlotCVT.py</i> as run for Fig. 3.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-6">6</a> Figure 6
+</h1>
+<ol>
+<li>
+This plot requires the same data as used for Fig. 5, plus knowledge of the gravity wave speeds (found from a linear analysis). Run a linear analysis of the model by first creating a directory <i>Master_Linear_Analysis</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory. Run <i>Master_Linear_Analysis.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.3.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Linear analysis of ABC model equations
+! --------------------------------------
+  datadirLinearAnal,       = ’.’
+  A                        = 0.02
+  B                        = 0.01
+  C                        = 1.0E4
+/
+</pre>
+</div>
+
+</li>
+<li>
+Compile the c++ program RossbyRadius.cpp (contained in the same directory as the python plotting code, note the libraries that are required):<br/>
+<div class="listing">
+<pre class="listing">g++ -I/usr/include RossbyRadius.cpp -o RossbyRadius.out -L/usr/lib -lnetcdf_c++ -lnetcdf -lfftw3 -lm
+</pre>
+</div>
+
+</li>
+<li>
+Run this code as follows from the command line inside directory <i>Master_Linear_Analysis</i>:<br/>
+<div class="listing">
+<pre class="listing">./RossbyRadius.out ../Master_Calibration .
+</pre>
+</div>
+
+</li>
+<li>
+To plot Fig. 6, edit the python program <i>Plot_horizvars_unbalrho+Rossby.py</i> to set <i>CVT_file</i> to <i>Master_Calibration</i> and <i>lengths_file</i> to <i>Master_Linear_Analysis/VerticalModeCharacteristics.dat</i> and run the python program.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-7">7</a> Figure 7
+</h1>
+<ol>
+<li>
+Make a directory <i>Master_ImpliedCovs</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory. Run <i>Master_ImpliedCov.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.6.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Compute implied covariances
+! ---------------------------
+  datadirImpliedCov        = ’.’,
+  datadirCVT               = ’../Master_Calibration’,
+  CVT_file                 = ’CVT.nc’,
+  datadirABCfcs            = ’../Master_Calibration/Master_Calibration_stage1’,
+  LS_file                  = ’FC_Ens001_Item001.nc’,
+  ImplCov_npoints          = 1
+  longindex(1)             = 180
+  levindex(1)              = 25
+/
+</pre>
+</div>
+
+</li>
+<li>
+To plot panels (a), (b), and (c) of Fig. 7, edit the python program <i>Plot_Covs.py</i> to set <i>plot_raw_covs</i> to <i>False</i>, <i>plot_implied_covs</i> to <i>True</i>, <i>data_dir_ImpliedCovs</i> to <i>Master_ImpliedCovs</i>, <i>longindex</i> to [179], and <i>levindex</i> = [24], and run the python program. Note that the <i>longindex</i> and <i>levindex</i> are <i>longindex</i>(1)-1 and <i>levindex</i>(1)-1 respectively.
+</li>
+<li>
+This can be repeated for different experiment configurations to get the rows 2 and 3 of Fig. 7 in the paper.
+</li>
+<li>
+Make directory<i> Master_RawCov</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory. Run <i>Master_RawCov.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.7.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Compute raw covariances
+! -----------------------
+  datadirRawCov            = ’.’
+  datadirABCperts          = ’../Master_Calibration/Master_Calibration_stage2’
+  Nens                     = 1
+  NensMems                 = 1
+  Nlats                    = 260
+  ImplCov_npoints          = 1
+  longindex(1)             = 180
+  levindex(1)              = 25
+/
+</pre>
+</div>
+
+</li>
+<li>
+To plot panels (j), (k), and (l) of Fig. 7, edit the python program <i>Plot_Covs.py</i> to set <i>plot_raw_covs</i> to <i>True</i>, <i>plot_implied_covs</i> to <i>False</i>, <i>data_dir_RawCovs</i> to <i>Master_RawCovs</i>, <i>Nens</i> to 1, <i>NEnsMems</i> to 260, <i>longindex</i> to [179], and <i>levindex</i> = [24], and run the python program. Note that the <i>longindex</i> and <i>levindex</i> are <i>longindex</i>(1)-1 and <i>levindex</i>(1)-1 respectively.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-8">8</a> Figure 8
+</h1>
+<div class="Unindented">
+This is a schema, and so doesn’t require production of any results.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-9">9</a> Figure 9
+</h1>
+<ol>
+<li>
+Make an ABC-style initial state (in order to generate synthetic observations and to measure errors from). Make a directory <i>Master_PrepareABC_InitState</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory.
+</li>
+<li>
+Run <i>Master_PrepareABC_InitState.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.1.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Master_PrepareABC_InitState
+! ---------------------------
+  Init_ABC_opt             = 3
+  datadirUM                = ’/home/data/UMdir’
+  init_um_file             = ’Member0001.nc’
+  datadirABC_out           = ’.’
+  init_ABC_file            = ’ABC_InitialConds.nc’
+  latitude                 = 102
+  Regular_vert_grid        = .TRUE.
+  Adv_tracer               = .TRUE.
+  gravity_wave_switch      = .FALSE.
+  f                        = 1.0E-4
+  A                        = 0.02
+  B                        = 0.01
+  C                        = 1.0E4
+  BoundSpread              = 100.
+  press_source_x           = 200
+  press_source_z           = 6
+  press_amp                = 0.005
+  x_scale                  = 120
+  z_scale                  = 14
+/
+</pre>
+</div>
+
+</li>
+<li>
+Make a short forecast from this initial state to spin-up characteristics of the ABC model. Make a directory <i>Master_RunNLModel</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory.
+</li>
+<li>
+Run <i>Master_RunNLModel.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.2.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Running ABC model
+! -----------------
+  datadirABC_in            = ’../Master_PrepareABC_InitState’
+  init_ABC_file            = ’ABC_InitialConds.nc’
+  datadirABC_out           = ’.’
+  output_ABC_file          = ’Truth.nc’
+  diagnostics_file         = ’ABC_Diagnostics.dat’
+  runlength                = 7200.0
+  ndumps                   = 9
+  dt                       = 4.0
+  Lengthscale_diagnostics  = .FALSE.
+  A                        = 0.02
+  B                        = 0.01
+  C                        = 1.0E4
+  Adv_tracer               = .TRUE.
+/
+</pre>
+</div>
+
+</li>
+<li>
+Specify the observation network. Make directory<i> Master_MakeBgObs_ObsNetwork</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory.
+</li>
+<li>
+Run<i> Master_MakeBgObs.out</i> with the following namelist file present (<i>UserOptions.nl</i>). See documentation, §4.8.<br/>
+<div class="listing">
+<pre class="listing">&amp;UserOptions
+! Specification of observation network
+! ------------------------------------
+  Generate_mode            = 1
+  ObsSpec%year0            = 2010
+  ObsSpec%month0           = 1
+  ObsSpec%day0             = 1
+  ObsSpec%hour0            = 0
+  ObsSpec%min0             = 0
+  ObsSpec%sec0             = 0
+  ObsSpec%NumBatches       = 7
+  datadir_ObsSpec          = ’.’
+  ObsSpec_file             = ’ObsSpec.dat’
+! ------------------------------
+  ObsSpec%batch(1)         = 1
+  ObsSpec%seconds(1)       = 0
+  ObsSpec%ob_of_what(1)    = 4       ! rp
+  ObsSpec%NumObs_long(1)   = 18
+  ObsSpec%NumObs_height(1) = 20
+  ObsSpec%long_min(1)      = 10.0
+  ObsSpec%long_max(1)      = 530000.0
+  ObsSpec%height_min(1)    = 1.0
+  ObsSpec%height_max(1)    = 12000.0
+  ObsSpec%stddev(1)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(2)         = 2
+  ObsSpec%seconds(2)       = 600
+  ObsSpec%ob_of_what(2)    = 4       ! rp
+  ObsSpec%NumObs_long(2)   = 18
+  ObsSpec%NumObs_height(2) = 20
+  ObsSpec%long_min(2)      = 10.0
+  ObsSpec%long_max(2)      = 530000.0
+  ObsSpec%height_min(2)    = 1.0
+  ObsSpec%height_max(2)    = 12000.0
+  ObsSpec%stddev(2)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(3)         = 3
+  ObsSpec%seconds(3)       = 1200
+  ObsSpec%ob_of_what(3)    = 4       ! rp
+  ObsSpec%NumObs_long(3)   = 18
+  ObsSpec%NumObs_height(3) = 20
+  ObsSpec%long_min(3)      = 10.0
+  ObsSpec%long_max(3)      = 530000.0
+  ObsSpec%height_min(3)    = 1.0
+  ObsSpec%height_max(3)    = 12000.0
+  ObsSpec%stddev(3)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(4)         = 4
+  ObsSpec%seconds(4)       = 1800
+  ObsSpec%ob_of_what(4)    = 4       ! rp
+  ObsSpec%NumObs_long(4)   = 18
+  ObsSpec%NumObs_height(4) = 20
+  ObsSpec%long_min(4)      = 10.0
+  ObsSpec%long_max(4)      = 530000.0
+  ObsSpec%height_min(4)    = 1.0
+  ObsSpec%height_max(4)    = 12000.0
+  ObsSpec%stddev(4)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(5)         = 5
+  ObsSpec%seconds(5)       = 2400
+  ObsSpec%ob_of_what(5)    = 4       ! rp
+  ObsSpec%NumObs_long(5)   = 18
+  ObsSpec%NumObs_height(5) = 20
+  ObsSpec%long_min(5)      = 10.0
+  ObsSpec%long_max(5)      = 530000.0
+  ObsSpec%height_min(5)    = 1.0
+  ObsSpec%height_max(5)    = 12000.0
+  ObsSpec%stddev(5)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(6)         = 6
+  ObsSpec%seconds(6)       = 3000
+  ObsSpec%ob_of_what(6)    = 4       ! rp
+  ObsSpec%NumObs_long(6)   = 18
+  ObsSpec%NumObs_height(6) = 20
+  ObsSpec%long_min(6)      = 10.0
+  ObsSpec%long_max(6)      = 530000.0
+  ObsSpec%height_min(6)    = 1.0
+  ObsSpec%height_max(6)    = 12000.0
+  ObsSpec%stddev(6)        = 0.0015
+! ------------------------------
+  ObsSpec%batch(7)         = 7
+  ObsSpec%seconds(7)       = 3600
+  ObsSpec%ob_of_what(7)    = 4       ! rp
+  ObsSpec%NumObs_long(7)   = 18
+  ObsSpec%NumObs_height(7) = 20
+  ObsSpec%long_min(7)      = 10.0
+  ObsSpec%long_max(7)      = 530000.0
+  ObsSpec%height_min(7)    = 1.0
+  ObsSpec%height_max(7)    = 12000.0
+  ObsSpec%stddev(7)        = 0.0015
+/
+</pre>
+</div>
+
+</li>
+<li>
+Now run the cycled data assimilation. Make directory<i> CycledDA_obs_rp</i> (in the same place as directory <i>Master_Calibration</i>) and enter this directory.
+</li>
+<li>
+Copy the bash script <i>DAcycle001.sh</i> to this directory and set <i>EXPERIMENT</i> to <i>CycledDA_obs_rp</i>, <i>BASE_DIR</i> to the full path to the parent of this directory appended with <i>/$EXPERIMENT</i>, <i>N_CYCLES</i> to 30, <i>N_OUTER_LOOPS</i> to 1, <i>N_INNER_LOOPS_MAX</i> to 100, <i>DA_WINDOW</i> to 3600.0, <i>DA_WINDOW_INT</i> to 3600, <i>OBS_NETWORK_DIR</i> to <i>$BASE_DIR/../Master_MakeBgObs_ObsNetwork</i>, <i>INITIAL_TRUTH_DIR</i> to <i>$BASE_DIR/Master_RunNLModel</i>, <i>CVT_DIR</i> to <i>$BASE_DIR/../MasterCalibration</i>, <i>CODE_DIR</i> to the directory containing the main fortran code, <i>PLOT_CODE_DIR</i> to the directory containing the python plotting code, <i>BACKGROUND_ALREADY_COMPUTED</i> to 0, <i>A</i> to 0.02, <i>B</i> to 0.01, <i>C</i> to 1.0E4, and <i>PLOT</i> to 1.
+</li>
+<li>
+Run the back script <i>DAcycle001.sh</i>.
+</li>
+<li>
+The cost function diagnostics of Fig. 9 should appear inside<i> $BASE_DIR/CycledDA_obs_rp/da_cycle_0007/Plots</i>.
+</li>
+
+</ol>
+<h1 class="Section">
+<a class="toc" name="toc-Section-10">10</a> Figure 10
+</h1>
+<div class="Unindented">
+The panels of Fig. 10 should also appear inside<i> $BASE_DIR/CycledDA_obs_rp/da_cycle_0007/Plots</i>. as per instructions for Fig. 9.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-11">11</a> Figure 11
+</h1>
+<div class="Unindented">
+Much of the data shown in Fig. 11 should appear inside<i> $BASE_DIR/CycledDA_obs_rp/Plots</i> as per instructions for Fig. 9. The specific panels of Fig. 11 are made by editing <i>PlotMultiCycleErrors4paper.py</i>.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-12">12</a> Figures 12 and 13
+</h1>
+<div class="Unindented">
+The above steps can be repeated for different options – in particular <i>CVT%CVT_param_opt_gb</i> can be set to 3 to turn-off the geostrophic balance constraint in the CVT, and <i>CVT%CVT_param_opt_reg</i> can be set to 2 to turn-off the vertical regression step that accompanies the geostrophic balance.
+</div>
+
+</div>
+</body>
+</html>
