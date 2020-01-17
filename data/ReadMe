@@ -1,0 +1,6 @@
+The sample data used to generate many of the data and plots used by the paper,
+"The `ABC-DA' system (v1.4): a variational data assimilation system for convective scale research with a study of the impact of a balance constraint"
+originates from the UM data file found at this location
+http://www.met.reading.ac.uk/~ross/downloads/Member001.nc.gz
+
+RNB, 17th January 2020
