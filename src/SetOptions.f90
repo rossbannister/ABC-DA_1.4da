@@ -66,6 +66,7 @@ USE DefConsTypes, ONLY :     &
   CVT,                       &
   VertSmoothPoints,          &
   HorizSmoothPoints,         &
+  ForceCor,                  &
   Generate_mode,             &
   ObsSpec,                   &
   datadir_ObsSpec,           &
@@ -237,6 +238,7 @@ PRINT*, 'CVT % CVT_vert_opt_sym   = ', CVT % CVT_vert_opt_sym
 PRINT*, 'CVT % CVT_stddev_opt     = ', CVT % CVT_stddev_opt
 PRINT*, 'VertSmoothPoints         = ', VertSmoothPoints
 PRINT*, 'HorizSmoothPoints        = ', HorizSmoothPoints
+PRINT*, 'ForceCor                 = ', ForceCor
 PRINT*, 'Generate_mode            = ', Generate_mode
 PRINT*, 'datadir_ObsSpec          = ', TRIM(datadir_ObsSpec)
 PRINT*, 'ObsSpec_file             = ', TRIM(ObsSpec_file)

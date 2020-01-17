@@ -51,6 +51,7 @@ USE DefConsTypes, ONLY :         &
     CVT,                         &
     VertSmoothPoints,            &
     HorizSmoothPoints,           &
+    ForceCor,                    &
     sr_nlongs
 
 
@@ -703,13 +704,14 @@ PRINT*, '***********************************************************************
 
       ! Due to approximations made, the vertical matrix will not precisely be a correlation matrix
       ! Scale to make sure that it is a correlation matrix
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode1(1:nlevs,1:nlevs,1))
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode2(1:nlevs,1:nlevs,1))
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode3(1:nlevs,1:nlevs,1))
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode4(1:nlevs,1:nlevs,1))
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode5(1:nlevs,1:nlevs,1))
-      CALL Ensure_correlation_matrix (nlevs, CVT % VertMode6(1:nlevs,1:nlevs,1))
-
+      IF (ForceCor) THEN
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode1(1:nlevs,1:nlevs,1))
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode2(1:nlevs,1:nlevs,1))
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode3(1:nlevs,1:nlevs,1))
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode4(1:nlevs,1:nlevs,1))
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode5(1:nlevs,1:nlevs,1))
+        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode6(1:nlevs,1:nlevs,1))
+      END IF
 
       ! Now compute the vertical eigenvectors and eigenvalues
       CALL VertEigens (CVT)
@@ -791,28 +793,29 @@ PRINT*, '***********************************************************************
       ! Normalize and square-root for standard deviations of horizontal spectra
       CALL CVT_Calibration_horizcovs (CVT, ControlVar, NTotalStates_r)  !ControlVar is not used in this call
 
-      ! Modify to ensure that the horizontal transform represents a correlation matrix
-      DO lev = 1, nlevs
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV1(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV1(1:nlongs/2+1,lev)))
-        CVT % HorizEV1(1:nlongs/2+1,lev) = alpha * CVT % HorizEV1(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV2(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV2(1:nlongs/2+1,lev)))
-        CVT % HorizEV2(1:nlongs/2+1,lev) = alpha * CVT % HorizEV2(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV3(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV3(1:nlongs/2+1,lev)))
-        CVT % HorizEV3(1:nlongs/2+1,lev) = alpha * CVT % HorizEV3(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV4(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV4(1:nlongs/2+1,lev)))
-        CVT % HorizEV4(1:nlongs/2+1,lev) = alpha * CVT % HorizEV4(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV5(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV5(1:nlongs/2+1,lev)))
-        CVT % HorizEV5(1:nlongs/2+1,lev) = alpha * CVT % HorizEV5(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV6(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV6(1:nlongs/2+1,lev)))
-        CVT % HorizEV6(1:nlongs/2+1,lev) = alpha * CVT % HorizEV6(1:nlongs/2+1,lev)
-      END DO
-
+      IF (ForceCor) THEN
+        ! Modify to ensure that the horizontal transform represents a correlation matrix
+        DO lev = 1, nlevs
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV1(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV1(1:nlongs/2+1,lev)))
+          CVT % HorizEV1(1:nlongs/2+1,lev) = alpha * CVT % HorizEV1(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV2(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV2(1:nlongs/2+1,lev)))
+          CVT % HorizEV2(1:nlongs/2+1,lev) = alpha * CVT % HorizEV2(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV3(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV3(1:nlongs/2+1,lev)))
+          CVT % HorizEV3(1:nlongs/2+1,lev) = alpha * CVT % HorizEV3(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV4(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV4(1:nlongs/2+1,lev)))
+          CVT % HorizEV4(1:nlongs/2+1,lev) = alpha * CVT % HorizEV4(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV5(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV5(1:nlongs/2+1,lev)))
+          CVT % HorizEV5(1:nlongs/2+1,lev) = alpha * CVT % HorizEV5(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV6(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV6(1:nlongs/2+1,lev)))
+          CVT % HorizEV6(1:nlongs/2+1,lev) = alpha * CVT % HorizEV6(1:nlongs/2+1,lev)
+        END DO
+      END IF
 
       ! Output
       CVT_filename = TRIM(datadirCVT) // '/' // TRIM(CVT_file)
@@ -893,28 +896,29 @@ PRINT*, '***********************************************************************
       ! Normalize and square-root for standard deviations of horizontal spectra
       CALL CVT_Calibration_horizcovs (CVT, ControlVar, NTotalStates_r)  !ControlVar is not used in this call
 
-      ! Modify to ensure that the horizontal transform represents a correlation matrix
-      DO lev = 1, nlevs
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV1(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV1(1:nlongs/2+1,lev)))
-        CVT % HorizEV1(1:nlongs/2+1,lev) = alpha * CVT % HorizEV1(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV2(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV2(1:nlongs/2+1,lev)))
-        CVT % HorizEV2(1:nlongs/2+1,lev) = alpha * CVT % HorizEV2(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV3(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV3(1:nlongs/2+1,lev)))
-        CVT % HorizEV3(1:nlongs/2+1,lev) = alpha * CVT % HorizEV3(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV4(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV4(1:nlongs/2+1,lev)))
-        CVT % HorizEV4(1:nlongs/2+1,lev) = alpha * CVT % HorizEV4(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV5(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV5(1:nlongs/2+1,lev)))
-        CVT % HorizEV5(1:nlongs/2+1,lev) = alpha * CVT % HorizEV5(1:nlongs/2+1,lev)
-        alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV6(1:nlongs/2+1,lev) * &
-                                                                         CVT % HorizEV6(1:nlongs/2+1,lev)))
-        CVT % HorizEV6(1:nlongs/2+1,lev) = alpha * CVT % HorizEV6(1:nlongs/2+1,lev)
-      END DO
-
+      IF (ForceCor) THEN
+        ! Modify to ensure that the horizontal transform represents a correlation matrix
+        DO lev = 1, nlevs
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV1(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV1(1:nlongs/2+1,lev)))
+          CVT % HorizEV1(1:nlongs/2+1,lev) = alpha * CVT % HorizEV1(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV2(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV2(1:nlongs/2+1,lev)))
+          CVT % HorizEV2(1:nlongs/2+1,lev) = alpha * CVT % HorizEV2(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV3(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV3(1:nlongs/2+1,lev)))
+          CVT % HorizEV3(1:nlongs/2+1,lev) = alpha * CVT % HorizEV3(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV4(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV4(1:nlongs/2+1,lev)))
+          CVT % HorizEV4(1:nlongs/2+1,lev) = alpha * CVT % HorizEV4(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV5(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV5(1:nlongs/2+1,lev)))
+          CVT % HorizEV5(1:nlongs/2+1,lev) = alpha * CVT % HorizEV5(1:nlongs/2+1,lev)
+          alpha                            = SQRT((REAL(nlongs)/2.0) / SUM(CVT % HorizEV6(1:nlongs/2+1,lev) * &
+                                                                           CVT % HorizEV6(1:nlongs/2+1,lev)))
+          CVT % HorizEV6(1:nlongs/2+1,lev) = alpha * CVT % HorizEV6(1:nlongs/2+1,lev)
+        END DO
+      END IF
 
       ! Output
       CVT_filename = TRIM(datadirCVT) // '/' // TRIM(CVT_file)
@@ -988,17 +992,19 @@ PRINT*, '***********************************************************************
       PRINT *, '  Finding the vert covs'
       CALL CVT_Calibration_vertcovs (CVT, ControlVar, NTotalStates_r)  !ControlVar is not used in this call
 
-      ! Due to approximations made, the vertical matrices will not precisely be correlation matrices
-      ! Scale to make sure that they are correlation matrices
-      DO k = 1, nlongs/2+1
-        PRINT *, 'Wavenumber ', k
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode1(1:nlevs,1:nlevs,k))
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode2(1:nlevs,1:nlevs,k))
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode3(1:nlevs,1:nlevs,k))
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode4(1:nlevs,1:nlevs,k))
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode5(1:nlevs,1:nlevs,k))
-        CALL Ensure_correlation_matrix (nlevs, CVT % VertMode6(1:nlevs,1:nlevs,k))
-      END DO
+      IF (ForceCor) THEN
+        ! Due to approximations made, the vertical matrices will not precisely be correlation matrices
+        ! Scale to make sure that they are correlation matrices
+        DO k = 1, nlongs/2+1
+          PRINT *, 'Wavenumber ', k
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode1(1:nlevs,1:nlevs,k))
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode2(1:nlevs,1:nlevs,k))
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode3(1:nlevs,1:nlevs,k))
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode4(1:nlevs,1:nlevs,k))
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode5(1:nlevs,1:nlevs,k))
+          CALL Ensure_correlation_matrix (nlevs, CVT % VertMode6(1:nlevs,1:nlevs,k))
+        END DO
+      END IF
 
       ! Now compute the vertical eigenvectors and eigenvalues
       PRINT *, '  Finding the eigens'

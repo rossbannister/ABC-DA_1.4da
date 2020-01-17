@@ -370,6 +370,7 @@ TYPE(CVT_type)            :: CVT                          ! Default values are s
 
 INTEGER                   :: VertSmoothPoints = 0         ! Number of points in vertical to average for standard dev.
 INTEGER                   :: HorizSmoothPoints = 0        ! Number of points in horizontal to average for standard dev.
+LOGICAL                   :: ForceCor = .TRUE.            ! Set to adjust transforms so that horiz. and vert. transforms imply correlations
 
 
 ! Variables to do with testing the DA
@@ -470,7 +471,7 @@ NAMELIST / UserOptions /                                                        
 ! --- Calibration, CVT, etc.
   CalibRunStage, NEns, EnsDirs, NEnsMems, NNMC, NMCDirs, datadirConParams,         &
   datadirABCfcs, datadirABCperts, datadirRegression,                               &
-  Nlats, latindex, CVT, VertSmoothPoints, HorizSmoothPoints,                       &
+  Nlats, latindex, CVT, VertSmoothPoints, HorizSmoothPoints, ForceCor,             &
 ! --- Generate background, obs, etc.
   Generate_mode, ObsSpec, datadir_ObsSpec, ObsSpec_file, datadir_Bg,               &
   datadir_Obs, Bg_file, Obs_file, dt_da, t0, random_seed,                          &
